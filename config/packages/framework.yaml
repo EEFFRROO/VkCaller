@@ -18,6 +18,13 @@ framework:
     php_errors:
         log: true
 
+    http_client:
+        scoped_clients:
+            vk.client:
+                scope: 'https://api\.vk\.com/method/'
+                headers:
+                    Authorization: 'Bearer %env(VK_USER_ACCESS_TOKEN)%'
+
 when@test:
     framework:
         test: true

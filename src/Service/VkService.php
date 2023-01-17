@@ -2,26 +2,35 @@
 
 namespace App\Service;
 
+use App\Client\VkClient;
 use App\Dto\PersonDto;
 use App\Service\Contracts\SocialNetworkInterface;
 
 class VkService implements SocialNetworkInterface
 {
+    private VkClient $vkClient;
+
+    public function __construct(VkClient $vkClient)
+    {
+        $this->vkClient = $vkClient;
+    }
 
     /**
      * @return PersonDto[]
      */
     public function getAllFriends(): array
     {
-        $firstPerson = new PersonDto();
-        $firstPerson->setVkId(1);
-        $secondPerson = new PersonDto();
-        $secondPerson->setVkId(2);
+        $friends = $this->vkClient->sendGet('friends.get');
+        $result = [];
+        if (isset($friends['items'])) {
+            foreach ($friends['items'] as $item) {
+                $person = new PersonDto();
+                $person->setVkId($item);
+                $result[] = $person;
+            }
+        }
 
-        return [
-            $firstPerson,
-            $secondPerson
-        ];
+        return $result;
     }
 
     /**
@@ -30,6 +39,7 @@ class VkService implements SocialNetworkInterface
      */
     public function getIsOnlineById(int $id): bool
     {
-        return $id === 1;
+        $result = $this->vkClient->sendGet('users.get', ['user_ids' => $id, 'fields' => 'online']);
+        return (bool)$result[0]['online'];
     }
 }
