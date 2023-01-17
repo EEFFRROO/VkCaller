@@ -24,6 +24,14 @@ class CallService
         }
     }
 
+    public function callToAvailableFriends(): void
+    {
+        $friends = $this->socialNetwork->getAllAvailableFriends();
+        foreach ($friends as $friend) {
+            $this->sender->sendMessage($friend->getVkId());
+        }
+    }
+
     public function callToFriend(int $friendId): void
     {
         $this->sender->sendMessage($friendId);

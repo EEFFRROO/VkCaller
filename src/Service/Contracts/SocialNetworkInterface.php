@@ -12,6 +12,11 @@ interface SocialNetworkInterface
     public function getAllFriends(): array;
 
     /**
+     * @return PersonDto[]
+     */
+    public function getAllAvailableFriends(): array;
+
+    /**
      * @param int $id
      * @return bool
      */

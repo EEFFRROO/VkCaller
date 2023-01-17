@@ -34,6 +34,25 @@ class VkService implements SocialNetworkInterface
     }
 
     /**
+     * @deprecated
+     * @return PersonDto[]
+     */
+    public function getAllAvailableFriends(): array
+    {
+        $friends = $this->vkClient->sendGet('friends.getAvailableForCall');
+        $result = [];
+        if (isset($friends['items'])) {
+            foreach ($friends['items'] as $item) {
+                $person = new PersonDto();
+                $person->setVkId($item);
+                $result[] = $person;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * @param int $id
      * @return bool
      */

@@ -25,13 +25,17 @@ class CallController extends AbstractController
         return new Response();
     }
 
-//    #[Route('/call', name: 'call_all')]
-    public function callFriendAction(Request $request): Response
+    #[Route('/callAvailable', name: 'call_available')]
+    public function callAvailableFriendsAction(Request $request): Response
     {
-        if (!$friendId = $request->get('friendId')) {
-            throw new BadRequestException();
-        }
-        $this->callService->callToFriend($friendId);
+        $this->callService->callToAvailableFriends();
+        return new Response();
+    }
+
+    #[Route('/call/{id}', name: 'call_friend')]
+    public function callFriendAction(int $id): Response
+    {
+        $this->callService->callToFriend($id);
         return new Response();
     }
 }
