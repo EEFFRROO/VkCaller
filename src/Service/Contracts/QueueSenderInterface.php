@@ -1,10 +1,11 @@
 <?php
 
+namespace App\Service\Contracts;
 
 interface QueueSenderInterface
 {
     /**
-     * @param $message
+     * @param string $message
      */
-    public function sendMessage($message): void;
+    public function sendMessage(string $message): void;
 }

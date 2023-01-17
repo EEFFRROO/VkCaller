@@ -1,10 +1,13 @@
 <?php
 
+namespace App\Service\Contracts;
+
+use App\Dto\PersonDto;
 
 interface SocialNetworkInterface
 {
     /**
-     * @return array
+     * @return PersonDto[]
      */
     public function getAllFriends(): array;
 

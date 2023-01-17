@@ -1,15 +1,27 @@
 <?php
 
+namespace App\Service;
+
+use App\Dto\PersonDto;
+use App\Service\Contracts\SocialNetworkInterface;
 
 class VkService implements SocialNetworkInterface
 {
 
     /**
-     * @return array
+     * @return PersonDto[]
      */
     public function getAllFriends(): array
     {
-        // TODO: Implement getAllFriends() method.
+        $firstPerson = new PersonDto();
+        $firstPerson->setVkId(1);
+        $secondPerson = new PersonDto();
+        $secondPerson->setVkId(2);
+
+        return [
+            $firstPerson,
+            $secondPerson
+        ];
     }
 
     /**
@@ -18,6 +30,6 @@ class VkService implements SocialNetworkInterface
      */
     public function getIsOnlineById(int $id): bool
     {
-        // TODO: Implement getIsOnlineById() method.
+        return $id === 1;
     }
 }
